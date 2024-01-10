@@ -11,7 +11,7 @@ function App() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search/?key=AIzaSyCLBNL9_Adtb5PT7iEYKOgaQ35EVv8w-dU&q=${search}&type=video&part=snippet&maxResults=20`)
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search/?key=/*ENTER API KEY HERE*/&q=${search}&type=video&part=snippet&maxResults=20`)
     const data = await response.json()
     console.log(data.items);
     setApiData(data.items);
