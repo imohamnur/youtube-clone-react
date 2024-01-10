@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import Videos from "./components/Videos";
 
 function App() {
+
+  const [search, setSearch] = useState("");
+  const [apiData, setApiData] = useState(null);
+
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search/?key=AIzaSyCLBNL9_Adtb5PT7iEYKOgaQ35EVv8w-dU&q=${search}&type=video&part=snippet&maxResults=20`)
+    const data = await response.json()
+    console.log(data.items);
+    setApiData(data.items);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header search={search} setSearch={setSearch} handleSearch={handleSearch} />
+      <Sidebar />
+      <Videos apiData={apiData}/>
+    </>
   );
 }
 
